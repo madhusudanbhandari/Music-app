@@ -1,0 +1,2 @@
+Spotify clone or simple music app using the MVVM architecture
+   M= Model(contains repository too),V=View(UI), VM=ViewModel(State Management)
