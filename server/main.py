@@ -1,13 +1,19 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 app=FastAPI()
 
-class Test(BaseModel):
-  name:str
-  age:int
-
-@app.post('/')
-def test(t:Test):
-   print(t)
-   return'Hello World'
+class UserCreate(BaseModel):
+    name:str
+    email:str
+    password:str 
+     
+@app.post('/signup')
+def signup_user(user: UserCreate):
+    #extract the data thats comming from req
+    print(user.name)
+    print(user.email)
+    print(user.password)
+    #check if the user already exist in db
+    #add the user to db
+    pass
