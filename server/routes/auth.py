@@ -1,16 +1,17 @@
-from fastapi import HTTPException
+from fastapi import Depends, HTTPException
 import uuid
-from database import db
 from models.user import User
+from database import get_db
 from pydantic_schemas.user_create import UserCreate
 import bcrypt
 from fastapi import APIRouter
+from sqlalchemy.orm import Session
 
 router=APIRouter()
 
 
 @router.post('/signup')
-def signup_user(user: UserCreate):
+def signup_user(user: UserCreate,db: Session=Depends(get_db)):
     #extract the data thats comming from req
     print(user.name)
     print(user.email)
@@ -22,7 +23,7 @@ def signup_user(user: UserCreate):
         raise HTTPException(400,'User with the same email already exist ')
       
     
-    hashed_pw=bcrypt.hashpw(user.password.encode(),bcrypt.gensalt()) 
+    hashed_pw=bcrypt.hashpw(user.password.encode('utf-8'),bcrypt.gensalt()) 
     user_db=User(id=str(uuid.uuid4()),name=user.name,email=user.email,password=hashed_pw)
 
     #add the user to db
@@ -32,3 +33,4 @@ def signup_user(user: UserCreate):
 
     return user_db
 
+ 
