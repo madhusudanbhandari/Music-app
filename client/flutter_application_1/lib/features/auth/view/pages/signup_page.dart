@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/auth/repositories/auth_remote_repository.dart';
 import 'package:flutter_application_1/features/auth/view/widgets/auth_gradient_button.dart';
 import 'package:flutter_application_1/features/auth/view/widgets/custom_field.dart';
 
@@ -49,7 +50,16 @@ class _SignupPageState extends State<SignupPage> {
                 isObscureText: true,
               ),
               SizedBox(height: 20),
-              AuthGradientButton(onTap: () {}, buttonText: 'Sign Up'),
+              AuthGradientButton(
+                onTap: () async {
+                  await AuthRemoteRepository().signup(
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                  );
+                },
+                buttonText: 'Sign Up',
+              ),
               SizedBox(height: 15),
               RichText(
                 text: TextSpan(
