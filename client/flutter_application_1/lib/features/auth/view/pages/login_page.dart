@@ -58,7 +58,7 @@ class _SignupPageState extends State<LoginPage> {
               SizedBox(height: 15),
               RichText(
                 text: TextSpan(
-                  text: "Dont't have an account? ",
+                  text: "Don't have an account? ",
                   style: TextStyle(
                     color: const Color.fromARGB(255, 244, 238, 238),
                   ),
